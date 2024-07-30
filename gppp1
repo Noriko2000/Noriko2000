@@ -1,0 +1,40 @@
+-- ModuleScript: SimpleAutoFarmModule
+
+local SimpleAutoFarmModule = {}
+
+function SimpleAutoFarmModule.Teleport(position)
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character.PrimaryPart then
+        player.Character:SetPrimaryPartCFrame(position)
+    end
+end
+
+function SimpleAutoFarmModule.EquipItem(itemName)
+    local player = game.Players.LocalPlayer
+    local item = player.Character and player.Character:FindFirstChild(itemName)
+    if item then
+        item:Activate()
+    end
+end
+
+function SimpleAutoFarmModule.StartAutoFarm()
+    _G.AutoFarm = true
+    while _G.AutoFarm do
+        local player = game.Players.LocalPlayer
+        local target = game.Workspace:FindFirstChild("TargetMob")
+        if target then
+            SimpleAutoFarmModule.Teleport(target.Position)
+            SimpleAutoFarmModule.EquipItem("Sword") -- ปรับชื่อไอเทมตามต้องการ
+            task.wait(1) -- รอ 1 วินาที
+        else
+            SimpleAutoFarmModule.Teleport(CFrame.new(0, 0, 0)) -- ตำแหน่งสำรอง
+        end
+        task.wait(1)
+    end
+end
+
+function SimpleAutoFarmModule.StopAutoFarm()
+    _G.AutoFarm = false
+end
+
+return SimpleAutoFarmModule
