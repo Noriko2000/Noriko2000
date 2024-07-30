@@ -1,0 +1,38 @@
+-- LocalScript: SimpleAutoFarmUI
+
+local SimpleAutoFarmModule = require(game.ServerScriptService:WaitForChild("SimpleAutoFarmModule"))
+
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+
+local frame = Instance.new("Frame", screenGui)
+frame.Size = UDim2.new(0, 300, 0, 200)
+frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+frame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+frame.BackgroundTransparency = 0.5
+frame.BorderSizePixel = 2
+frame.BorderColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local startButton = Instance.new("TextButton", frame)
+startButton.Size = UDim2.new(0, 250, 0, 50)
+startButton.Position = UDim2.new(0, 25, 0, 30)
+startButton.Text = "Start AutoFarm"
+startButton.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+startButton.TextColor3 = Color3.new(1, 1, 1)
+startButton.TextScaled = true
+
+local stopButton = Instance.new("TextButton", frame)
+stopButton.Size = UDim2.new(0, 250, 0, 50)
+stopButton.Position = UDim2.new(0, 25, 0, 100)
+stopButton.Text = "Stop AutoFarm"
+stopButton.BackgroundColor3 = Color3.new(0.7, 0.3, 0.3)
+stopButton.TextColor3 = Color3.new(1, 1, 1)
+stopButton.TextScaled = true
+
+startButton.MouseButton1Click:Connect(function()
+    SimpleAutoFarmModule.StartAutoFarm()
+end)
+
+stopButton.MouseButton1Click:Connect(function()
+    SimpleAutoFarmModule.StopAutoFarm()
+end)
